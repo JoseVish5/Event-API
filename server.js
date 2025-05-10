@@ -1,4 +1,3 @@
-// server.js
 const express = require('express');
 const cors = require('cors');
 const admin = require('firebase-admin');
@@ -7,7 +6,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const serviceAccount = require('./serviceAccountKey.json');
+const serviceAccount = require('../backend/serviceAccountKey.json');
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -40,11 +39,6 @@ app.post('/api/registrations', async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
-});
-
-// Default route for testing
-app.get('/', (req, res) => {
-  res.send('Welcome to the Event Registration API!');
 });
 
 const PORT = process.env.PORT || 5000;
