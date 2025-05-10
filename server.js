@@ -1,14 +1,19 @@
-require('dotenv').config();  // Load environment variables from .env file
 const express = require('express');
 const cors = require('cors');
 const admin = require('firebase-admin');
+const dotenv = require('dotenv');
+
+// Load environment variables from Render environment settings
+dotenv.config();
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-const serviceAccount = require(process.env.FIREBASE_SERVICE_ACCOUNT_KEY_PATH);
+// Get Firebase credentials from the environment variable
+const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY);
 
+// Initialize Firebase Admin SDK with the service account credentials
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: "https://event-reg-app-default-rtdb.firebaseio.com"
