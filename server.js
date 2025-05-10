@@ -23,6 +23,7 @@ const db = admin.database();
 
 // GET all registrations
 app.get('/api/registrations', async (req, res) => {
+  res.json({ message: 'Registrations endpoint is working!' });
   try {
     const snapshot = await db.ref('event_integration').once('value');
     const data = snapshot.val() || {};
